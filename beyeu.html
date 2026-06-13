@@ -13,15 +13,49 @@
 }
 
 body{
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    font-family:"Segoe UI", sans-serif;
     overflow:hidden;
-    min-height:100vh;
+    height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
+    background: linear-gradient(-45deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1);
+    background-size:400% 400%;
+    animation: gradientMove 10s ease infinite;
 }
 
+/* 🌈 nền động */
+@keyframes gradientMove{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* 🎬 màn hình mở đầu */
+#startScreen{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    flex-direction:column;
+    color:white;
+}
+
+#startScreen button{
+    padding:15px 25px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    cursor:pointer;
+    background:#ff4d6d;
+    color:white;
+}
+
+/* 💌 card */
 .card{
     width:90%;
     max-width:550px;
@@ -29,7 +63,7 @@ body{
     padding:35px;
     border-radius:30px;
     text-align:center;
-    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
     z-index:10;
 }
 
@@ -52,19 +86,12 @@ body{
     font-size:18px;
 }
 
+/* ✍️ typing effect */
 .line{
-    opacity:0;
-    transform:translateY(25px);
-    transition:all 1.2s ease;
     margin-top:18px;
     font-size:20px;
     color:#444;
-    line-height:1.8;
-}
-
-.line.show{
-    opacity:1;
-    transform:translateY(0);
+    min-height:30px;
 }
 
 .btn{
@@ -88,100 +115,72 @@ body{
     animation:fadeIn 1s ease;
 }
 
-.heart,
-.rose{
+/* 💖 tim bay */
+.heart{
     position:absolute;
     bottom:-50px;
-    animation:floatUp linear infinite;
-}
-
-@keyframes pulse{
-    0%,100%{
-        transform:scale(1);
-    }
-    50%{
-        transform:scale(1.15);
-    }
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-    }
-    to{
-        opacity:1;
-    }
+    font-size:20px;
+    animation:floatUp linear forwards;
+    opacity:0.8;
 }
 
 @keyframes floatUp{
-    from{
-        transform:translateY(0);
-        opacity:1;
-    }
-    to{
-        transform:translateY(-120vh);
-        opacity:0;
-    }
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-120vh);opacity:0;}
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+}
+
+@keyframes fadeIn{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* 📱 mobile */
+@media(max-width:600px){
+    .card{padding:25px;}
+    .names{font-size:24px;}
+    .line{font-size:18px;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🎬 START -->
+<div id="startScreen">
+    <h2>💖 Dành riêng cho bạn 💖</h2>
+    <p style="margin:10px 0;">Bấm để bắt đầu</p>
+    <button onclick="start()">Vào xem ❤️</button>
+</div>
+
+<!-- 🎵 nhạc -->
+<audio id="bgMusic" loop>
+    <source src="'một đời' - 14 Casper & Bon Nghiêm (feat (mp3cut.net).mp3" type="audio/mpeg">
+</audio>
+
 <div class="card">
 
     <div class="big-heart">💖</div>
-
-    <div class="names">
-        Yang ❤️ Ly
-    </div>
+    <div class="names">Yang ❤️ Ly</div>
 
     <div class="days" id="daysCounter"></div>
 
-    <div id="line1" class="line">
-        Bé yêu ơi 🥺
-    </div>
+    <div class="line" id="line"></div>
 
-    <div id="line2" class="line">
-        Anh yêu bé nhiều lắm ❤️
-    </div>
-
-    <div id="line3" class="line">
-        Anh nhớ bé nhiều lắm đấy bé có biết hong nè 💕
-    </div>
-
-    <div id="line4" class="line">
-        Hong biết bé có nhớ tới anh hong jaaa 🥹
-    </div>
-
-    <button id="openBtn" class="btn" onclick="showSecret()">
-        💌 Bấm vào đây nè bé
+    <button class="btn" id="openBtn" onclick="showSecret()">
+        💌 Mở thư
     </button>
 
     <div class="secret" id="secret">
-
-        Ly à ❤️
-
-        <br><br>
-
-        Cảm ơn em vì đã xuất hiện trong cuộc đời anh.
-
-        <br><br>
-
-        Từ ngày 23/02/2024 đến hôm nay,
-        mỗi ngày có em đều là một ngày đặc biệt.
-
-        <br><br>
-
-        Dù có lúc vui, lúc buồn,
-        anh vẫn luôn trân trọng những khoảnh khắc của chúng ta.
-
-        <br><br>
-
-        Anh nhớ em nhiều lắm 🥺
-
-        <br><br>
-
+        Ly à ❤️<br><br>
+        Cảm ơn em vì đã xuất hiện trong cuộc đời anh.<br><br>
+        Từ 23/02/2024 đến hôm nay,<br>
+        mỗi ngày có em đều là một ngày đặc biệt.<br><br>
+        Anh nhớ em 🥺<br><br>
         Yang ❤️ Ly
     </div>
 
@@ -189,125 +188,65 @@ body{
 
 <script>
 
-// ===== Đếm ngày yêu =====
+const music = document.getElementById("bgMusic");
+
+/* 🚀 bắt đầu */
+function start(){
+    document.getElementById("startScreen").style.display="none";
+    music.play();
+
+    typeText("Bé yêu ơi 🥺 Anh nhớ bé nhiều lắm ❤️");
+}
+
+/* ✍️ typing effect */
+let i = 0;
+function typeText(text){
+    const el = document.getElementById("line");
+    el.innerHTML = "";
+    i = 0;
+
+    let timer = setInterval(()=>{
+        el.innerHTML += text[i];
+        i++;
+        if(i >= text.length) clearInterval(timer);
+    },80);
+}
+
+/* 📅 đếm ngày */
 const loveDate = new Date("2024-02-23");
 
 function updateCounter(){
-
     const now = new Date();
-
     const diff = now - loveDate;
-
-    const days = Math.floor(
-        diff / (1000 * 60 * 60 * 24)
-    );
+    const days = Math.floor(diff/(1000*60*60*24));
 
     document.getElementById("daysCounter").innerHTML =
-        "💞 Chúng ta đã bên nhau được " +
-        days +
-        " ngày";
+    "💞 " + days + " ngày bên nhau";
 }
-
 updateCounter();
 
-// ===== Hiện từng câu =====
-
-setTimeout(()=>{
-    document.getElementById("line1")
-        .classList.add("show");
-},1500);
-
-setTimeout(()=>{
-    document.getElementById("line2")
-        .classList.add("show");
-},4500);
-
-setTimeout(()=>{
-    document.getElementById("line3")
-        .classList.add("show");
-},7500);
-
-setTimeout(()=>{
-    document.getElementById("line4")
-        .classList.add("show");
-},10500);
-
-setTimeout(()=>{
-    document.getElementById("openBtn")
-        .style.display="inline-block";
-},13500);
-
-// ===== Thư bí mật =====
-
+/* 💌 mở thư */
 function showSecret(){
-    document.getElementById("secret")
-        .style.display="block";
+    document.getElementById("secret").style.display="block";
 }
 
-// ===== Tim bay =====
-
+/* 💖 tim bay nhẹ */
 function createHeart(){
+    const h = document.createElement("div");
+    h.className="heart";
+    h.innerHTML="💖";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(15+Math.random()*25)+"px";
+    h.style.animationDuration=(4+Math.random()*4)+"s";
 
-    const heart =
-        document.createElement("div");
+    document.body.appendChild(h);
 
-    heart.className="heart";
-
-    heart.innerHTML="❤️";
-
-    heart.style.left=
-        Math.random()*100+"vw";
-
-    heart.style.fontSize=
-        (18 + Math.random()*28)+"px";
-
-    heart.style.animationDuration=
-        (4 + Math.random()*4)+"s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },8000);
+    setTimeout(()=>h.remove(),8000);
 }
 
-// ===== Hoa hồng =====
-
-function createRose(){
-
-    const rose =
-        document.createElement("div");
-
-    rose.className="rose";
-
-    rose.innerHTML="🌹";
-
-    rose.style.left=
-        Math.random()*100+"vw";
-
-    rose.style.fontSize=
-        (18 + Math.random()*20)+"px";
-
-    rose.style.animationDuration=
-        (5 + Math.random()*4)+"s";
-
-    document.body.appendChild(rose);
-
-    setTimeout(()=>{
-        rose.remove();
-    },9000);
-}
-
-setInterval(createHeart,300);
-setInterval(createRose,900);
+setInterval(createHeart,250);
 
 </script>
-<audio id="bgMusic" loop>
-    <source src="'một đời' - 14 Casper & Bon Nghiêm (feat (mp3cut.net).mp3" type="audio/mpeg">
-</audio>
 
-<button onclick="playMusic()" class="btn">
-    🎵 Bật nhạc cho bé
-</button>
 </body>
 </html>
